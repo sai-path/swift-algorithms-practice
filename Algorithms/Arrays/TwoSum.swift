@@ -2,6 +2,8 @@
 // @title: Two Sum Unsorted
 // @difficulty: Easy
 // @tags: Array, Dictionary
+// @time: O(n)
+// @space: O(n)
 //
 // ====================================================
 // 🧩 Step 1: Problem Statement

@@ -1,13 +1,15 @@
 import os
 import re
+import urllib.parse
 
 def generate_table():
-    exclude_dirs = {'.git', '.github', 'scripts', '.vscode'}
-    # Regex to capture metadata from your Swift headers
+    exclude_dirs = {'.git', '.github', 'scripts'}
     meta_re = {
         'title': re.compile(r"//\s*@title:\s*(.*)"),
         'diff': re.compile(r"//\s*@difficulty:\s*(.*)"),
-        'tags': re.compile(r"//\s*@tags:\s*(.*)")
+        'tags': re.compile(r"//\s*@tags:\s*(.*)"),
+        'time': re.compile(r"//\s*@time:\s*(.*)"),  # New!
+        'space': re.compile(r"//\s*@space:\s*(.*)") # New!
     }
 
     rows = []
@@ -16,19 +18,29 @@ def generate_table():
         for file in files:
             if file.endswith(".swift"):
                 path = os.path.join(root, file).replace("\\", "/")
-                data = {'title': file, 'diff': 'Unknown', 'tags': 'None'}
+                data = {'title': file, 'diff': 'Unknown', 'tags': 'None', 'time': 'N/A', 'space': 'N/A'}
                 
                 with open(path, 'r', encoding='utf-8') as f:
-                    header = f.read(1500) # Read first 1500 chars
+                    header = f.read(1500)
                     for key, regex in meta_re.items():
                         match = regex.search(header)
                         if match: data[key] = match.group(1).strip()
                 
+                # --- Create Badges ---
+                # URL encode the complexity string (e.g., O(n) -> O%28n%29)
+                time_enc = urllib.parse.quote(data['time'])
+                space_enc = urllib.parse.quote(data['space'])
+                
+                time_badge = f"![Time](https://img.shields.io{time_enc}-blue?style=flat-square)"
+                space_badge = f"![Space](https://img.shields.io{space_enc}-orange?style=flat-square)"
+                
                 emoji = "🟢 " if "Easy" in data['diff'] else "🟡 " if "Medium" in data['diff'] else "🔴 " if "Hard" in data['diff'] else ""
-                rows.append(f"| {data['title']} | {emoji}{data['diff']} | `{data['tags']}` | [View Solution]({path}) |")
+                
+                # Add to row
+                rows.append(f"| {data['title']} | {emoji}{data['diff']} | {time_badge} {space_badge} | `{data['tags']}` | [View Solution]({path}) |")
 
     rows.sort()
-    header = "| Problem | Difficulty | Tags | Solution |\n| :--- | :--- | :--- | :--- |\n"
+    header = "| Problem | Difficulty | Complexity | Tags | Solution |\n| :--- | :--- | :--- | :--- | :--- |\n"
     return header + "\n".join(rows)
 
 def update_readme():
