@@ -23,4 +23,7 @@ Each problem follows a **5-Step Format**:
 ---
 
 ## 🧭 Repository Structure
-**File:** `Problems/Arrays/TwoSum.swift`
+**File:** `Algorithms/Arrays/TwoSum.swift`
+
+<!-- TABLE_START -->
+<!-- TABLE_END -->
