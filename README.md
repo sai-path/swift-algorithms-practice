@@ -26,4 +26,10 @@ Each problem follows a **5-Step Format**:
 **File:** `Algorithms/Arrays/TwoSum.swift`
 
 <!-- TABLE_START -->
+
+| Problem | Difficulty | Complexity | Tags | Solution |
+| :--- | :--- | :--- | :--- | :--- |
+| Two Sum Unsorted | 🟢 Easy | ![Time](https://img.shields.ioO%28n%29-blue?style=flat-square) ![Space](https://img.shields.ioO%28n%29-orange?style=flat-square) | `Array, Dictionary` | [View Solution](./Algorithms/Arrays/TwoSum.swift) |
+| Two Sum Unsorted | 🟢 Easy | ![Time](https://img.shields.ioO%28n%29-blue?style=flat-square) ![Space](https://img.shields.ioO%28n%29-orange?style=flat-square) | `Array, Dictionary` | [View Solution](./Algorithms/Arrays/TwoSumSorted.swift) |
+
 <!-- TABLE_END -->
