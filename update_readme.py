@@ -8,8 +8,9 @@ def generate_table():
         'title': re.compile(r"//\s*@title:\s*(.*)"),
         'diff': re.compile(r"//\s*@difficulty:\s*(.*)"),
         'tags': re.compile(r"//\s*@tags:\s*(.*)"),
-        'time': re.compile(r"//\s*@time:\s*(.*)"),  # New!
-        'space': re.compile(r"//\s*@space:\s*(.*)") # New!
+        'time': re.compile(r"//\s*@time:\s*(.*)"),
+        'space': re.compile(r"//\s*@space:\s*(.*)"),
+        'source': re.compile(r"//\s*@source:\s*(.*)")
     }
 
     rows = []
@@ -36,8 +37,10 @@ def generate_table():
                 
                 emoji = "🟢 " if "Easy" in data['diff'] else "🟡 " if "Medium" in data['diff'] else "🔴 " if "Hard" in data['diff'] else ""
                 
+                source_link = f"[🔗]({data['source']})" if data['source'] != "N/A" else ""
+
                 # Add to row
-                rows.append(f"| {data['title']} | {emoji}{data['diff']} | {time_badge} {space_badge} | `{data['tags']}` | [View Solution]({path}) |")
+                rows.append(f"| {data['title']} {source_link} | {emoji}{data['diff']} | {time_badge} {space_badge} | `{data['tags']}` | [View Solution]({path}) |")
 
     rows.sort()
     header = "| Problem | Difficulty | Complexity | Tags | Solution |\n| :--- | :--- | :--- | :--- | :--- |\n"

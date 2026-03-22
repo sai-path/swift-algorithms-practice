@@ -4,12 +4,15 @@
 // @tags: Array, Dictionary
 // @time: O(n)
 // @space: O(n)
+// @source: https://leetcode.com/problems/two-sum/description/
 //
 // ====================================================
 // 🧩 Step 1: Problem Statement
 // ====================================================
 //
-// Given an array of integers numbers and an integer target
+// Link: [LeetCode #1 - Two Sum](https://leetcode.com/problems/two-sum/description/)
+//
+// Given an array of integers `numbers` and an integer `target`,
 // find the indices of the two numbers such that they add up to a target.
 //
 // ====================================================
