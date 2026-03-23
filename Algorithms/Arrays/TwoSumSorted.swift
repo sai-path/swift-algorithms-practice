@@ -1,39 +1,43 @@
-// @id: two-sum-unsorted
-// @title: Two Sum Unsorted
-// @difficulty: Easy
-// @tags: Array, Dictionary
+// @id: two-sum-sorted
+// @title: Two Sum Sorted
+// @difficulty: Medium
+// @tags: Array, Two Pointers
 // @time: O(n)
-// @space: O(n)
+// @space: O(1)
+// @source: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 //
 // ====================================================
 // 🧩 Step 1: Problem Statement
 // ====================================================
 //
-// Given an array of integers numbers and an integer target
-// find the indices of the two numbers such that they add up to a target.
+// Link: [LeetCode #167 - Two Sum](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+//
+// Given an array of integers sorted in ascending order and a`target` value,
+// return the indices of any pair of numbers that sum to the `target`.
+// If no pair is found, return the empty array
 //
 // ====================================================
 // ⚙️ Step 2: Algorithm Approaches
 // ====================================================
 //
-// 1. Brute Force – Check all pairs (O(n²) time, O(1) space)
-// 2. Two-Pass Dictionary – Build map then search (O(n), O(n))
-// 3. One-Pass Dictionary – Build + search together (O(n), O(n))
+// 1. Brute Force – Check all possible pairs (O(n²) time, O(1) space)
+// 2. Dictionary Map – Standard Two-Sum logic (O(n) time, O(n) space)
+// 3. Two Pointers - Inward traversal (O(n) time, O(1) space)
 //
 // ====================================================
 // 💻 Step 3: Code Implementations
 // ====================================================
 
 /**
- * Brute Force – Check all pairs
- * Checks every possible pair of numbers to find the target.
+ * Brute Force – Check all possible pairs.
+ * Checks every possible pair of numbers to find the target. This is done using two nested loops
  * - Parameters:
  *   - numbers: Input array of integers.
  *   - target: The desired sum value.
- * - Returns: Indices of the two numbers, or an empty array if none found.
+ * - Returns: Indexes of the two numbers, or an empty array if none found.
  * - Complexity: O(n²) time, O(1) space.
  */
-func twoSumBruteForce(_ numbers: [Int], _ target: Int) -> [Int] {
+func twoSumSortedBruteForce(_ numbers: [Int], _ target: Int) -> [Int] {
     guard !numbers.isEmpty else {
         return []
     }
@@ -49,52 +53,20 @@ func twoSumBruteForce(_ numbers: [Int], _ target: Int) -> [Int] {
 }
 
 /**
- * Two-Pass Dictionary.
- * First Pass: Populate the map with each number and its index
- * Second Pass: Check for each number's complement in the map
+ * Dictionary Map.
+ * Build the dictionary while searching for complements.
  * - Parameters:
  *   - numbers: Input array of integers.
  *   - target: The desired sum value.
- * - Returns: Indices of the two numbers, or an empty array if none found.
+ * - Returns: Indexes of the two numbers, or an empty array if none found.
  * - Complexity: O(n) time, O(n) space.
  */
-func twoSumTwoPass(_ numbers: [Int], _ target: Int) -> [Int] {
+func twoSumSortedUsingDictionary(_ numbers: [Int], _ target: Int) -> [Int] {
     guard !numbers.isEmpty else {
         return []
     }
     
     var map: [Int: Int] = [:]
-    
-    // First pass: build map
-    for (index, number) in numbers.enumerated() {
-        map[number] = index
-    }
-    
-    // Second pass: find complement
-    for (index, number) in numbers.enumerated() {
-        if let complementIndex = map[target - number],
-           complementIndex != index { // Exclude the self
-            return [index, complementIndex]
-        }
-    }
-    return []
-}
-
-/**
- * One-Pass Dictionary.
- * Build the map while searching for complements.
- * - Parameters:
- *   - numbers: Input array of integers.
- *   - target: The desired sum value.
- * - Returns: Indices of the two numbers, or an empty array if none found.
- * - Complexity: O(n) time, O(n) space.
- */
-func twoSumOnePass(_ numbers: [Int], _ target: Int) -> [Int] {
-    guard !numbers.isEmpty else {
-        return []
-    }
-    
-    var map: [Int: Int] = [:] // Stores complement value as key and its index as value
     
     for (index, number) in numbers.enumerated() {
         if let complementIndex = map[number] {
@@ -102,7 +74,38 @@ func twoSumOnePass(_ numbers: [Int], _ target: Int) -> [Int] {
         }
         map[target - number] = index
     }
+    return []
+}
+
+/**
+ * Two Pointers - using inward traversal.
+ * If their sum is less than the target, increment left, aiming to increase the sum toward the target value.
+ * If their sum is greater than the target, decrement right, aiming to decrease the sum toward the target value.
+ * If their sum is equal to the target value, return [left, right]
+ * - Parameters:
+ *   - numbers: Input array of integers.
+ *   - target: The desired sum value.
+ * - Returns: Indexes of the two numbers, or an empty array if none found.
+ * - Complexity: O(n) time, O(1) space.
+ */
+func twoSumSorted(_ numbers: [Int], _ target: Int) -> [Int] {
+    guard !numbers.isEmpty else {
+        return []
+    }
     
+    var left = 0
+    var right = numbers.count - 1
+    
+    while left < right {
+        let sum = numbers[left] + numbers[right]
+        if sum == target {
+            return [left, right]
+        } else if sum < target {
+            left += 1
+        } else {
+            right -= 1
+        }
+    }
     return []
 }
 
@@ -111,7 +114,7 @@ func twoSumOnePass(_ numbers: [Int], _ target: Int) -> [Int] {
 //====================================================
 
 let tests: [([Int], Int)] = [
-    ([3,2,7,11,15], 9), // [1, 2] Given valid scenarios
+    ([2,7,11,15], 9), // [0, 1] Given valid scenarios
     ([], 0), // [] Empty Array
     ([1], 1), // [] Array with just one element
     ([2, 3], 5), // [0, 1] Two-element array that contains a pair that sum to the target
@@ -123,20 +126,20 @@ let tests: [([Int], Int)] = [
 
 for (nums, target) in tests {
     print("Input: \(nums), Target: \(target)")
-    print("→ BruteForce:", twoSumBruteForce(nums, target))
-    print("→ TwoPass:", twoSumTwoPass(nums, target))
-    print("→ OnePass:", twoSumOnePass(nums, target))
+    print("→ BruteForce:", twoSumSortedBruteForce(nums, target))
+    print("→ Dictionary:", twoSumSortedUsingDictionary(nums, target))
+    print("→ TwoPointers:", twoSumSorted(nums, target))
     print("---")
 }
 
 // ====================================================
 // 📊 Step 5: Analysis
-// One-Pass is optimal for most cases.
+// Two Pointers is optimal for most cases because it uses O(1) space by leveraging the fact that the input array is already sorted.
 // ====================================================
 //
 // Example Output:
 //
-// Input: [3,2,7,11,15], Target: 9
-// → BruteForce: [1, 2]
-// → TwoPass: [1, 2]
-// → OnePass: [1, 2]
+// Input: [2, 7, 11, 15], Target: 9
+// → BruteForce: [0, 1]
+// → Dictionary: [0, 1]
+// → TwoPointers: [0, 1]

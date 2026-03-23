@@ -13,7 +13,7 @@
 // Link: [LeetCode #1 - Two Sum](https://leetcode.com/problems/two-sum/description/)
 //
 // Given an array of integers `numbers` and an integer `target`,
-// find the indices of the two numbers such that they add up to a target.
+// return the indices of the two numbers such that they add up to a `target`.
 //
 // ====================================================
 // ⚙️ Step 2: Algorithm Approaches
