@@ -31,7 +31,8 @@ Each problem follows a **5-Step Format**:
 
 | Problem | Difficulty | Complexity | Tags | Solution |
 | :--- | :--- | :--- | :--- | :--- |
-| Two Sum Sorted[🔗](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | 🟡 Medium | ![Time](https://img.shields.ioO%28n%29-blue?style=flat-square) ![Space](https://img.shields.ioO%281%29-orange?style=flat-square) | `Array, Two Pointers` | [View Solution](./Algorithms/Arrays/TwoSumSorted.swift) |
-| Two Sum Unsorted[🔗](https://leetcode.com/problems/two-sum/description/) | 🟢 Easy | ![Time](https://img.shields.ioO%28n%29-blue?style=flat-square) ![Space](https://img.shields.ioO%28n%29-orange?style=flat-square) | `Array, Dictionary` | [View Solution](./Algorithms/Arrays/TwoSum.swift) |
+| **Two Sum Unsorted** [🔗](https://leetcode.com/problems/two-sum/description/) | 🟢 Easy | ![Time](https://img.shields.io/badge/Time-O%28n%29-blue?style=flat-square)<br>![Space](https://img.shields.io/badge/Space-O%28n%29-orange?style=flat-square) | `Array` `Dictionary` | [💡 Solution](./Algorithms/Arrays/TwoSum.swift) |
+| **Two Sum Sorted** [🔗](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | 🟡 Medium | ![Time](https://img.shields.io/badge/Time-O%28n%29-blue?style=flat-square)<br>![Space](https://img.shields.io/badge/Space-O%281%29-orange?style=flat-square) | `Array` `Two Pointers` | [💡 Solution](./Algorithms/Arrays/TwoSumSorted.swift) |
+| **Tripletsum**  | Unknown | ![Time](https://img.shields.io/badge/Time-N/A-blue?style=flat-square)<br>![Space](https://img.shields.io/badge/Space-N/A-orange?style=flat-square) | `None` | [💡 Solution](./Algorithms/Arrays/TripletSum.swift) |
 
 <!-- TABLE_END -->
