@@ -39,13 +39,19 @@ def generate_table():
                 time_enc = urllib.parse.quote(data['time'])
                 space_enc = urllib.parse.quote(data['space'])
                 
-                time_badge = f"![Time](https://img.shields.io{time_enc}-blue?style=flat-square)"
-                space_badge = f"![Space](https://img.shields.io{space_enc}-orange?style=flat-square)"
+                time_badge = f"![Time](https://img.shields.io/badge/Time-{time_enc}-blue?style=flat-square)"
+                space_badge = f"![Space](https://img.shields.io/badge/Space-{space_enc}-orange?style=flat-square)"
                 source_link = f"[🔗]({data['source']})" if data['source'] != "N/A" else ""
-                emoji = "🟢 " if "Easy" in data['diff'] else "🟡 " if "Medium" in data['diff'] else "🔴 " if "Hard" in data['diff'] else ""
+                emoji = (
+                    "🟢 Easy" if "Easy" in data['diff']
+                    else "🟡 Medium" if "Medium" in data['diff']
+                    else "🔴 Hard" if "Hard" in data['diff']
+                    else data['diff']
+                )
                 
-                # Add to row
-                rows.append(f"| {data['title']}{source_link} | {emoji}{data['diff']} | {time_badge} {space_badge} | `{data['tags']}` | [View Solution]({path}) |")
+                rows.append(
+                    f"| **{data['title']}** {source_link} | {emoji} | {time_badge}<br>{space_badge} | `{data['tags']}` | [💡 Solution]({path}) |"
+                )
 
     rows.sort()
     header = "| Problem | Difficulty | Complexity | Tags | Solution |\n| :--- | :--- | :--- | :--- | :--- |\n"
